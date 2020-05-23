@@ -9,6 +9,13 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v1
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Install npm dependencies
+      run: npm install
     - name: AWS Deploy push
       uses: ItsKarma/aws-cli@v1.70.0
       env:
