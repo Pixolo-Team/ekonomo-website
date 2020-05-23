@@ -36,4 +36,4 @@ jobs:
           --deployment-config-name CodeDeployDefault.OneAtATime
           --deployment-group-name 	bitbucket-codedeploy
           --file-exists-behavior OVERWRITE
-          --s3-location bucket=deployments,key=ekonomo-1.0.0.zip,bundleType=zip
+          --s3-location bucket=deployments,key=ekonomo-1.0.0,bundleType=zip
