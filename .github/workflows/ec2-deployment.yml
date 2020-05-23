@@ -21,7 +21,7 @@ jobs:
           --application-name AWSCodeDeployBitbucket
           --description "This is a revision for the AWSCodeDeployBitbucket"
           --ignore-hidden-files
-          --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0.zip
+          --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0
           --source .
     - name: AWS Create Deploy
       uses: ItsKarma/aws-cli@v1.70.0
