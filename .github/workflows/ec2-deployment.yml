@@ -9,13 +9,6 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Install Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '10.x'
-    - name: Install npm dependencies
-      run: npm install
     - name: AWS Deploy push
       uses: ItsKarma/aws-cli@v1.70.0
       env:
@@ -23,8 +16,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: "ap-south-1"
       with:
-        args: >-
-          deploy push
+        args: deploy push
           --application-name AWSCodeDeployBitbucket
           --description "This is a revision for the AWSCodeDeployBitbucket"
           --ignore-hidden-files
