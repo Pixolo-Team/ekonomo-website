@@ -2,20 +2,13 @@ name: CI/CD
 
 on: 
  push:
-  branches: [ staging ]
+  branches: [ development ]
 
 jobs:
-  test:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-
-  staging-deploy:
-    runs-on: ubuntu-latest
-    needs: [test]
-    if: github.ref == 'refs/heads/develop'
-    steps:
-    - uses: actions/checkout@v1
     - name: AWS Deploy push
       uses: ItsKarma/aws-cli@v1.70.0
       env:
@@ -43,4 +36,4 @@ jobs:
           --deployment-config-name CodeDeployDefault.OneAtATime
           --deployment-group-name 	bitbucket-codedeploy
           --file-exists-behavior OVERWRITE
-          --s3-location bucket=deployments,key=ekonomo-1.0.0.zip,bundleType=zip
+          --s3-location bucket=deployments,key=ekonomo-1.0.0,bundleType=zip
