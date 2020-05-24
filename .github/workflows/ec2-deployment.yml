@@ -30,3 +30,17 @@ jobs:
           --ignore-hidden-files
           --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0.zip
           --source . 
+    - name: AWS Create Deploy
+      uses: ItsKarma/aws-cli@v1.70.0
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: "ap-south-1"
+      with:
+        args: >-
+          deploy create-deployment
+          --application-name AWSCodeDeployBitbucket
+          --deployment-config-name CodeDeployDefault.OneAtATime
+          --deployment-group-name bitbucket-codedeploy
+          --file-exists-behavior OVERWRITE
+          --s3-location bucket=deployments,key=ekonomo-1.0.0.zip,bundleType=zip
