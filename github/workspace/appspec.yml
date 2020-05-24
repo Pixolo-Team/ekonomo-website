@@ -1,1 +1,7 @@
-
+--- 
+files: 
+  - 
+    destination: /var/www/ekonomo
+    source: /
+os: linux
+version: 0.0
