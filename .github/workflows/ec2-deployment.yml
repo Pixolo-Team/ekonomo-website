@@ -15,14 +15,8 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: "ap-south-1"
-      with:
-       args: >-
-          deploy push
-          --application-name AWSCodeDeployBitbucket
-          --description "This is a revision for the api-server"
-          --ignore-hidden-files
-          --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0.zip
-          --source . 
+    - name: code push
+      uses: /usr/bin/docker run --name be76dbf42e92c59e1448ab95d49578764a8849_df26fe --label be76db --workdir /github/workspace --rm -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION -e INPUT_ARGS -e HOME -e GITHUB_JOB -e GITHUB_REF -e GITHUB_SHA -e GITHUB_REPOSITORY -e GITHUB_REPOSITORY_OWNER -e GITHUB_RUN_ID -e GITHUB_RUN_NUMBER -e GITHUB_ACTOR -e GITHUB_WORKFLOW -e GITHUB_HEAD_REF -e GITHUB_BASE_REF -e GITHUB_EVENT_NAME -e GITHUB_URL -e GITHUB_API_URL -e GITHUB_GRAPHQL_URL -e GITHUB_WORKSPACE -e GITHUB_ACTION -e GITHUB_EVENT_PATH -e RUNNER_OS -e RUNNER_TOOL_CACHE -e RUNNER_TEMP -e RUNNER_WORKSPACE -e ACTIONS_RUNTIME_URL -e ACTIONS_RUNTIME_TOKEN -e ACTIONS_CACHE_URL -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/ekonomo-website/ekonomo-website":"/github/workspace" be76db:f42e92c59e1448ab95d49578764a8849 deploy push --application-name AWSCodeDeployBitbucket --description "This is a revision for the api-server" --ignore-hidden-files --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0.zip --source .
     - name: AWS Create Deploy
       uses: ItsKarma/aws-cli@v1.70.0
       env:
