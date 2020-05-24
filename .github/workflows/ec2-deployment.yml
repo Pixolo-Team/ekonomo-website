@@ -11,5 +11,22 @@ jobs:
     steps:
     - name: list all the files
       run: pwd
-    - name: Install npm dependencies
-      run: ls .
+    - uses: actions/checkout@v1
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: AWS Deploy push
+      uses: ItsKarma/aws-cli@v1.70.0
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: "ap-south-1"
+      with:
+       args: >-
+          deploy push
+          --application-name AWSCodeDeployBitbucket
+          --description "This is a revision for the api-server"
+          --ignore-hidden-files
+          --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0.zip
+          --source . 
