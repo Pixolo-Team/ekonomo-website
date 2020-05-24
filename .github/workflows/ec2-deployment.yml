@@ -28,7 +28,7 @@ jobs:
           --application-name AWSCodeDeployBitbucket
           --description "This is a revision for the api-server"
           --ignore-hidden-files
-          --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0.zip
+          --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0
           --source . 
     - name: AWS Create Deploy
       uses: ItsKarma/aws-cli@v1.70.0
@@ -43,4 +43,4 @@ jobs:
           --deployment-config-name CodeDeployDefault.OneAtATime
           --deployment-group-name bitbucket-codedeploy
           --file-exists-behavior OVERWRITE
-          --s3-location bucket=deployments,key=ekonomo-1.0.0.zip,bundleType=zip
+          --s3-location bucket=deployments,key=ekonomo-1.0.0,bundleType=zip
