@@ -2,13 +2,20 @@ name: CI/CD
 
 on: 
  push:
-  branches: [ development ]
+  branches: [ master ]
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+    - name: list all the files
+      run: pwd
+    - uses: actions/checkout@v1
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
     - name: AWS Deploy push
       uses: ItsKarma/aws-cli@v1.70.0
       env:
@@ -16,13 +23,13 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: "ap-south-1"
       with:
-        args: >-
+       args: >-
           deploy push
           --application-name AWSCodeDeployBitbucket
-          --description "This is a revision for the AWSCodeDeployBitbucket"
+          --description "This is a revision for the api-server"
           --ignore-hidden-files
-          --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0.zip
-          --source .
+          --s3-location s3://ekonomo-codedeploy/ekonomo-1.0.0
+          --source . 
     - name: AWS Create Deploy
       uses: ItsKarma/aws-cli@v1.70.0
       env:
@@ -34,6 +41,6 @@ jobs:
           deploy create-deployment
           --application-name AWSCodeDeployBitbucket
           --deployment-config-name CodeDeployDefault.OneAtATime
-          --deployment-group-name 	bitbucket-codedeploy
+          --deployment-group-name bitbucket-codedeploy
           --file-exists-behavior OVERWRITE
           --s3-location bucket=deployments,key=ekonomo-1.0.0,bundleType=zip
